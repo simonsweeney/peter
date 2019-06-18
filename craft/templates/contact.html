@@ -1,0 +1,47 @@
+{% extends "_layout" %}
+
+{% block content %}
+
+<div class="contact">
+    
+    
+    <section>
+    	<h2>MANAGEMENT</h2>
+	
+        <div class="line"></div>
+        
+
+        {% for block in entry.management %}
+        <div class="contact-item">
+            <div>{{ block.personName }}</div>
+            <div class="text-grey gmt-light">{{ block.phone }}</div>
+            <div class="text-grey gmt-light">
+                <a href="mailto:{{ block.email }}">{{ block.email }}</a>
+            </div>
+        </div>
+        {% endfor %}
+    </section>
+
+    <section>
+	    <h2>AGENTS</h2>
+	    
+        <div class="line"></div>
+        
+        
+        {% for block in entry.agents %}
+            <div class="agent">
+                <div>{{ block.agentName }}</div>
+                <div>{{ block.company }}</div>
+
+                <div class="text-grey gmt-light">{{ block.phone }}</div>
+                <div class="text-grey gmt-light">
+                    <a href="mailto:{{ block.email }}">{{ block.email }}</a>
+                </div>
+            </div>
+        {% endfor %}
+    </section>
+    
+</div>  
+
+
+{% endblock %}

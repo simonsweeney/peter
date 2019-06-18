@@ -1,0 +1,1177 @@
+@charset "UTF-8";
+
+@mixin phone {
+  @media (max-width: 500px) { @content; }
+}
+
+@mixin tablet {
+  @media (max-width: 768px) { @content; }
+}
+
+@mixin tablet-only {
+  @media (max-width: 768px) and (min-width: 416px){ @content; }
+}
+
+
+
+@mixin desktop {
+  @media (min-width: 769px) { @content; }
+}
+
+
+
+/* @import must be at top of file, otherwise CSS will not work */
+@import url("//hello.myfonts.net/count/32a8de");
+
+  
+
+
+
+@font-face {
+    font-family: 'GrotesqueMTStd';
+    src: url('webfonts/32A8DE_4_0.eot');
+    src: url('webfonts/32A8DE_4_0.eot?#iefix') format('embedded-opentype'),
+         url('webfonts/32A8DE_4_0.woff2') format('woff2'),url('webfonts/32A8DE_4_0.woff') format('woff'),
+         url('webfonts/32A8DE_4_0.ttf') format('truetype');
+    font-weight: 100;
+}
+  
+@font-face {
+    font-family: 'GrotesqueMTStd';
+    src: url('webfonts/32A8DE_5_0.eot');
+    src: url('webfonts/32A8DE_5_0.eot?#iefix') format('embedded-opentype'),
+         url('webfonts/32A8DE_5_0.woff2') format('woff2'),url('webfonts/32A8DE_5_0.woff') format('woff'),
+         url('webfonts/32A8DE_5_0.ttf') format('truetype');
+    font-weight: 100;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'GrotesqueMTStd';
+    src: url('webfonts/32A8DE_0_0.eot');
+    src: url('webfonts/32A8DE_0_0.eot?#iefix') format('embedded-opentype'),
+         url('webfonts/32A8DE_0_0.woff2') format('woff2'),url('webfonts/32A8DE_0_0.woff') format('woff'),
+         url('webfonts/32A8DE_0_0.ttf') format('truetype');
+    font-weight: 400;
+}
+  
+@font-face {
+    font-family: 'GrotesqueMTStd';
+    src: url('webfonts/32A8DE_3_0.eot');
+    src: url('webfonts/32A8DE_3_0.eot?#iefix') format('embedded-opentype'),
+         url('webfonts/32A8DE_3_0.woff2') format('woff2'),url('webfonts/32A8DE_3_0.woff') format('woff'),
+         url('webfonts/32A8DE_3_0.ttf') format('truetype');
+    font-weight: 400;
+    font-style: italic;
+}
+ 
+@font-face {
+    font-family: 'GrotesqueMTStd';
+    src: url('webfonts/32A8DE_2_0.eot');
+    src: url('webfonts/32A8DE_2_0.eot?#iefix') format('embedded-opentype'),
+         url('webfonts/32A8DE_2_0.woff2') format('woff2'),url('webfonts/32A8DE_2_0.woff') format('woff'),
+         url('webfonts/32A8DE_2_0.ttf') format('truetype');
+    font-weight: 700;
+}
+
+
+@font-face {
+    font-family: 'GrotesqueMTStd-Black';
+    src: url('webfonts/32A8DE_1_0.eot');
+    src: url('webfonts/32A8DE_1_0.eot?#iefix') format('embedded-opentype'),
+         url('webfonts/32A8DE_1_0.woff2') format('woff2'),url('webfonts/32A8DE_1_0.woff') format('woff'),
+            url('webfonts/32A8DE_1_0.ttf') format('truetype');
+    font-weight: 700;
+}
+ 
+
+
+.gmt-light { 
+	font-family: GrotesqueMTStd;
+	font-weight: 100;
+}
+
+.gmt-light-italic { 
+	font-family: GrotesqueMTStd;
+	font-weight: 100;
+	font-style: italic;
+}
+
+.gmt { 
+	font-family: GrotesqueMTStd;
+	font-weight: 400;
+	font-style: normal;
+}
+
+.gmt-italic { 
+	font-family: GrotesqueMTStd;
+	font-weight: 400;
+	font-style: italic;
+}
+
+.gmt-bold { 
+	font-family: GrotesqueMTStd;
+	font-weight: 700;
+}
+
+.gmt-black { 
+	font-family: GrotesqueMTStd;
+	font-weight: 900;
+}
+ 
+ 
+$bg: #a2acb6;
+$bg-black: rgb(15,15,15);
+
+$primary: #fafafa;
+$secondary: #d0d3d9;
+$tertiary: #e2e0d7;
+
+.center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+li {
+    list-style: none;    
+}
+
+body {
+	font-family: GrotesqueMTStd, sans-serif;
+	@include desktop {
+    	-webkit-font-smoothing: antialiased;
+	}
+	
+    text-align: center;
+    background-color: $bg;
+    color: $primary;
+    letter-spacing: 0.02em;
+    font-size: 18px;
+    line-height: 26px;
+    min-height: 100vh;
+    @include tablet {
+        font-size: 17px;
+        line-height: 26px;
+    }
+    @include phone {
+        font-size: 15px;
+        line-height: 24px;
+    }
+}
+
+/* TYPE */
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 100;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+h2, header h1 {
+    font-size: 24px;
+    @include tablet {
+        font-size: 20px;
+    }
+    @include phone {
+        font-size: 18px;
+    }
+}
+
+h3 {
+    font-size: 17px;
+    @include tablet {
+        font-size: 15px;
+    }
+    @include phone {
+        font-size: 13px;
+    }
+}
+
+// .text-grey {
+//     color: $secondary;
+    
+//     a {
+//         &:hover {
+//             color: $primary;
+//         }
+//     }
+// }
+
+.bg-black {
+    background-color: $bg-black;
+}
+
+
+/*  GLOBAL */
+
+header {
+    position: relative;
+    z-index: 100;
+    font-weight: 100;
+    padding-top: 30px;
+    @include tablet {
+        padding-top: 25px;
+    }
+    @include phone {
+        padding-top: 20px;
+    }
+
+
+    h1 {
+        padding-bottom: 20px;
+        @include tablet {
+            padding-bottom: 17px;
+        }
+        @include phone {
+            padding-bottom: 14px;
+        }
+        
+        a {
+            color: $primary;
+        }
+    }
+    
+    li {
+        display: inline-block;
+        letter-spacing: 0.05em;
+
+        font-size: 18px;
+        padding: 0 10px;
+        
+        @include tablet {
+            font-size: 16px;
+            padding: 0 9px;
+        }
+        @include phone {
+            font-size: 14px;
+            padding: 0 7px;
+        }
+    }
+    
+    a {
+        color: $secondary;
+        
+        &.active {
+            color: $primary;
+        }
+    }
+}
+
+.line {
+    width: 60px;
+    margin: 14px auto;
+    @include tablet {
+        width: 50px;
+        margin: 13px auto;
+    }
+    @include phone {
+        width: 40px;
+        margin: 10px auto;
+    }
+        
+    height: 1px;
+    background-color: $primary;
+}
+
+.work, .bio, .contact, .single {
+    margin-top: 80px;
+    @include tablet {
+        margin-top: 60px;
+    }
+    @include phone {
+        margin-top: 50px;
+    }
+}
+
+
+section {
+    
+   
+    
+    a {
+        font-style: italic;
+        
+        &:hover {
+            color: $secondary;
+        }
+    }
+    
+    p {
+        strong {
+            font-weight: 700;
+        }
+    }
+    
+    @include tablet {
+        width: 80%;
+        margin-left: 10%;
+    }
+    
+    @include phone {
+        width: 90%;
+        margin-left: 5%;
+    }
+}
+
+
+
+.bg {
+    position: fixed;
+    background-position: center center;
+    background-size: cover;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    
+    h1 {
+        @extend .center;
+        cursor: pointer;
+        font-size: 85px;
+        letter-spacing: 0.05em;
+        line-height: 83px;
+        width: 100%;
+        
+        @include tablet {
+            font-size: 60px;
+            line-height: 75px;
+            width: 60%;
+            letter-spacing: 0.01em;
+
+        }
+        
+        @include phone {
+            font-size: 45px;
+            line-height: 55px;
+            width: 80%;
+            letter-spacing: 0.01em;
+        }
+        
+        
+        font-weight: 100;
+        text-shadow: 0px 0px 3px rgba(255, 255, 255, 1);
+        transition: text-shadow 0.5s;
+        
+        &:hover {
+            text-shadow: 0px 0px 10px rgba(255, 255, 255, 1);
+        }
+    }
+}
+
+.home {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    
+    .nav {
+        display: none;
+        @extend .center;
+        font-weight: 100;
+        font-size: 60px;
+        letter-spacing: 0.06em;
+
+        a:hover {
+            color: $secondary;    
+        }
+        
+        @include tablet {
+            font-size: 50px;
+
+        }
+        
+        @include phone {
+            font-size: 42px;
+        }
+        
+        li {
+            margin-bottom: 63px;
+            @include tablet {
+                margin-bottom: 65px;
+            }
+            
+            @include phone {
+                margin-bottom: 50px;
+            }
+            
+            &:last-of-type {
+                margin-bottom: 0;   
+            }
+        }
+    }
+    
+}
+
+
+
+/*  BIO */
+
+.bio {
+    section {
+        margin-bottom: 68px;
+        
+        &:last-of-type {
+            margin-bottom: 150px;
+        }
+    }
+    
+    .bio-section p {
+        line-height: 1.4;
+    }
+}
+
+/* CONTACT */
+
+.contact {
+    section {
+        margin-bottom: 56px;
+        font-size: 21px;
+        line-height: 28px;
+        @include tablet {
+            font-size: 20px;
+            line-height: 30px;
+        }
+        @include phone {
+            font-size: 18px;
+            line-height: 28px;
+        }
+        
+        &:last-of-type {
+            margin-bottom: 150px;
+        }
+        
+        .agent {
+            margin-bottom: 56px;
+            
+            &:last-of-type {
+                margin-bottom: 0;
+            }
+        }
+    }
+}
+
+
+
+
+/* WORK */
+
+@-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
+@-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
+@keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
+
+@-moz-keyframes glow { 
+    
+    0% {
+        opacity: 0.4;
+    }
+    
+    100% {
+        opacity: 0.2;
+    }
+    
+}
+
+@-webkit-keyframes glow { 
+    
+    0% {
+        opacity: 0.4;
+    }
+    
+    100% {
+        opacity: 0.2;
+    }
+    
+}
+
+@keyframes glow { 
+    
+    0% {
+        opacity: 0.5;
+    }
+    
+    100% {
+        opacity: 0.1;
+    }
+    
+}
+
+.constellation {
+    position: fixed;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    background: #222222;
+
+    &:before {
+        content: '';
+        position: absolute;
+        z-index: 0;
+        width: 200%;
+        height: 200%;
+        top: -50%;
+        left: -50%;
+        background-image: url('/assets/celestial.jpg');
+        background-position: center center;
+        background-size: cover;
+        background-repeat: no-repeat;
+
+        -webkit-animation:spin 300s linear infinite;
+        -moz-animation:spin 300s linear infinite;
+        animation:spin 300s linear infinite;
+    }
+}
+
+.tooltip {
+    position: absolute;
+    font-size: 18px;
+    line-height: 1.1;
+    color: white;
+    z-index: 9999;
+    text-transform: uppercase;
+    text-shadow: 0 0 3px #FFFFFF;
+    letter-spacing: 1px;
+    display: none;
+}
+
+$max-width: 1400px;
+    
+.work {
+    
+    width: calc(90% + 4px);
+    max-width: $max-width;
+    margin: 40px auto 8rem auto;
+
+   
+
+    @include phone {
+        width: calc(90% + 4px);
+        margin-left: calc(5% - 2px);
+    }
+    
+    @include tablet {
+        padding-bottom: 100px;   
+    }
+    
+    ul {
+        overflow: auto;
+        
+        @include desktop {
+            &.center-one a:last-child li {
+                margin-left: 37.5%;
+            }
+            
+            &.center-two a:nth-last-child(2) li {
+                margin-left: 25%;
+            }
+            
+            &.center-three a:nth-last-child(3) li {
+                margin-left: 12.5%;
+            }
+            
+        }  
+        
+        @include tablet-only {
+            &.tab-center-one a:nth-last-child(1) li  {
+                margin-left: 33.3333%;
+            }
+            
+            &.tab-center-two a:nth-last-child(2) li  {
+                margin-left: 12.5%;
+            }
+        }
+        
+        @include phone {
+            &.mob-center-one a:nth-last-child(1) li {
+                margin-left: 25%;
+            }
+        }
+            
+        li {
+            width: calc(25% - 4px);
+            max-width: $max-width / 4;
+            height: 33vw;
+            min-height: 28vw;
+            max-height: $max-width / 4;
+
+            h2 {
+                text-transform: uppercase;
+                letter-spacing: 0;
+                position: absolute;
+                bottom: 0;
+                font-size: 17px;
+                letter-spacing: 1px;
+                width: 100%;
+                
+                opacity: 0.7;
+                
+                
+                @include phone {
+                    font-size: 14px;
+                    line-height: 1.2;
+                }
+            }
+
+            @include tablet {
+                width: calc(33% - 4px); 
+                height: 42vw;
+            }
+            
+            @include phone {
+                width: calc(50% - 4px); 
+                height: 55vw;
+            }
+            
+            float: left;
+            margin: 2px;
+            position: relative;
+            
+             
+            .image {
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                background-position: center center;
+                background-size: cover;
+                background-repeat: no-repeat;
+                transition: opacity 0.5s;
+                // -webkit-animation: glow 3s alternate infinite;
+                // -moz-animation: glow 3s alternate infinite;
+                // animation: glow 3s alternate infinite;
+                
+
+                // @include tablet {
+                    background-size: contain;
+                    animation: none;
+                    opacity: 0.7;
+                // }
+                
+                &.odd {
+                    animation-delay: 1.5s;
+                }
+            }
+            
+            .caption {
+                opacity: 1;
+                height: 100%;
+                width: 100%;
+                position: relative;
+                
+                &.soon h2 {
+                    top: 52%;
+                }
+                
+                h2 {
+                    
+                    @extend .center;
+                    width: 100%;
+                    font-size: 18px;
+                    line-height: 1.1;
+                    
+                    em {
+                        font-size: 14px;
+                        letter-spacing: 1;
+                    }
+                }
+            }
+            
+            
+            
+            @include desktop {
+                .image {
+                    opacity: 0.4;    
+                }
+                
+                &:hover .image {
+                    opacity: 1;  
+                    // cursor: none;
+                    animation: none;
+                }
+                
+                &:hover .caption {
+                    opacity: 1;
+                }
+            }
+            
+            
+            
+            // &.no-desktop {
+          
+                
+            //     a {
+            //         display: none;    
+            //     }
+                
+            //     &.hide {
+            //         .image {
+            //             opacity: 0.5;
+            //         }
+                    
+            //         a {
+            //             display: block;
+            //             position: absolute;
+            //             height: 100%;
+            //             width: 100%;
+            //         }
+                    
+            //         .caption {
+            //             opacity: 1;
+            //             z-index: 100;
+            //         }
+            //     }
+                
+            // }
+            
+            
+        }
+    }
+}
+
+.work.no-gap {
+    margin-top: 2px;
+    overflow: auto;
+    margin-bottom: 150px;
+    margin-left: calc(5% - 2px);
+}
+
+
+.prev, .next {
+    position: fixed;
+    cursor: pointer;
+    top: 45%;
+    @include phone {
+        top: 35%;
+        height: 25px;
+        
+        img {
+            max-height: 100%;
+        }
+    }
+}
+
+.prev {
+    left: -50px;
+    
+    @include phone {
+        left: -20px;
+    }
+}
+
+.next {
+    right: -50px;
+    @include phone {
+        right: -20px;
+    }
+}
+
+.single {
+    width: 80%;
+    margin: 0;
+    margin-left: 10%;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-48%);
+    @include phone {
+      width: 86%;
+      margin-left: 7%;
+    }
+
+    .slide {
+        display: none;
+        
+        &:first-of-type {
+            display: block;
+        }
+       
+    }
+    
+
+    
+    .thumb {
+        display: block;
+
+    }
+    
+    .thumb {
+        width: 100%;
+        height: 40vw;
+        @include phone {
+            height: 55vw;
+        }
+        position: relative;
+        background-position: center center;
+        background-size: cover;
+        
+        &.not-cropped {
+            background-size: contain;
+            background-repeat: no-repeat;
+            
+            background-color: black;
+        }
+    }
+    
+    video {
+        width: 100%;
+        max-height: 40vw;
+        @include phone {
+            max-height: 45vw;
+        }
+        display: block;
+        overflow: hidden;
+
+    }
+    
+    ::-webkit-media-controls {
+      display:none !important;
+    }
+    
+    audio {
+        width: 100%;
+        margin-bottom: 4px;
+    }
+    
+    
+}
+
+
+audio {
+    display: none;
+}
+
+
+$player-grey: #71706c;
+
+
+.player {
+    width: 80%;
+    margin-left: 7.5%;
+    padding: 10px 0;
+    font-size: 0.9rem;
+    
+    @include phone {
+        width: 100%;
+        margin-left: 0;
+    }
+    
+    
+    .controls, .play, .pause, .stop, .scrubber-wrap, .times, .volume {
+        display: inline-block;
+    }
+    
+    .controls {
+        width: 15%;
+
+        @include tablet {
+            width: 22%;
+        }
+        @include phone {
+            width: 22%;
+  
+        }
+        position: relative;
+
+        .controls-wrap {
+            position: absolute;
+            top: -14px;
+            right: 0;
+            
+            @include phone {
+                left: 0;
+            }
+            
+          
+         
+        }
+        
+      
+        .play, .pause, .stop {
+            cursor: pointer;
+            padding-right: 15px;
+            @include phone {
+                padding-right: 6px;
+            }
+            
+            svg:hover rect, svg:hover polygon {
+                fill: white;
+            }
+        }
+        
+        
+    }
+    
+    .scrubber-wrap {
+        width: 50%;
+        @include tablet {
+            width: 40%;
+        }
+        @include phone {
+            width: 38%;
+        }
+        position: relative;
+        
+        .scrubber {
+            
+              position: absolute;
+              bottom: 3px;
+              left: 0;
+        }
+    }
+    
+    .times {
+        width: 10%;
+        min-width: 80px;
+        color: $player-grey;
+        @include tablet {
+            width: 20%;
+        }
+        @include phone {
+            text-align: right;
+        }
+    }
+}
+
+.volume {
+    display: none;
+
+    
+    &:hover {
+        input#volume_slider {
+            display: block;
+        }    
+    }
+    
+    #volume_button {
+        display: none;
+        
+        @include desktop {
+            display: block;
+        }
+        
+        position: relative;
+        top: 4px;
+    }
+    
+    input#volume_slider {
+        transform: rotate(-90deg);
+        width: 90px;
+        background: $bg-black;
+        height: 30px;
+        padding: 10px;
+        position: absolute;
+        bottom: 10px;
+        margin-left: 8px;
+        transform-origin: 0% 50%;
+        display: none;
+    }
+  
+}
+
+
+
+
+
+input[type=range] {
+  -webkit-appearance: none; 
+  width: 100%; 
+  background: transparent; 
+}
+
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+}
+
+input[type=range]:focus {
+  outline: none; 
+}
+
+input[type=range]::-ms-track {
+  width: 100%;
+  cursor: pointer;
+  background: transparent; 
+  border-color: transparent;
+  color: transparent;
+}
+
+
+
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  height: 15px;
+  width: 15px;
+  border-radius: 15px;
+  background: $player-grey;
+  cursor: pointer;
+  margin-top: -7px; /* You need to specify a margin in Chrome, but in Firefox and IE it is automatic */
+//   @include tablet {
+//     height: 11px;
+//     width: 11px;
+//     border-radius: 11px;
+//     margin-top: -5px;
+//   }
+            
+}
+
+/* All the same stuff for Firefox */
+input[type=range]::-moz-range-thumb {
+  height: 15px;
+  width: 15px;
+  border-radius: 15px;
+  background: $player-grey;
+  cursor: pointer;
+//   @include tablet {
+//     height: 11px;
+//     width: 11px;
+//     border-radius: 11px;
+//   }
+}
+
+/* All the same stuff for IE */
+input[type=range]::-ms-thumb {
+  height: 15px;
+  width: 15px;
+  border-radius: 15px;
+  background: $player-grey;
+  cursor: pointer;
+//   @include tablet {
+//     height: 11px;
+//     width: 11px;
+//     border-radius: 11px;
+//   }
+}
+
+
+
+
+
+
+
+
+input[type=range]::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 2px;
+  cursor: pointer;
+  background: $player-grey;
+}
+
+input[type=range]:focus::-webkit-slider-runnable-track {
+  background: $player-grey;
+}
+
+input[type=range]::-moz-range-track {
+  width: 100%;
+  height: 4px;
+  cursor: pointer;
+  background: $player-grey;
+}
+
+input[type=range]::-ms-track {
+  width: 100%;
+  height: 4px;
+  cursor: pointer;
+  background: transparent;
+  border-color: transparent;
+  border-width: 16px 0;
+  color: transparent;
+}
+
+input[type=range]::-ms-fill-lower {
+  background: $player-grey;
+}
+
+input[type=range]:focus::-ms-fill-lower {
+  background: $player-grey;
+}
+
+input[type=range]::-ms-fill-upper {
+  background: $player-grey;
+}
+
+input[type=range]:focus::-ms-fill-upper {
+  background: $player-grey;
+}
+
+
+
+
+
+.close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 20px;
+    height: 20px;
+    
+    img {
+        width: 100%;
+    }
+    
+    // @include phone {
+    //     width: 20px;
+    //     height: 20px;
+    // }
+}
+
+
+.hide {
+    display: none;
+}
+
+.only-phone {
+    display: none;    
+}
+
+.only-desktop {
+    display: block;    
+}
+
+.no-desktop {
+    display: none;
+    
+    @include tablet {
+        display: block;
+    }
+}
+
+// @include tablet {
+//     .no-desktop {
+//         display: block;
+//     }
+    
+    
+//     .only-desktop {
+//         display: none;    
+//     }
+// }
+
+// @include phone {
+//     .phone-black {
+//         background-color: black;
+//     }
+
+//     .no-phone {
+//         display: none;
+//     }
+    
+//     .only-phone {
+//         display: block;
+//     }
+
+// }
+
+
+
+
+
+
+
+

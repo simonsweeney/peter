@@ -1,0 +1,366 @@
+{% extends "_layout" %}
+
+{% block content %}
+
+
+{# Set parameters for prev/next elements list #}
+
+{% set params = craft.entries.section('work').order('title asc') %}
+
+	        
+		
+			
+		<div class="close">
+			<a href="{{ siteUrl }}work"><img src="/assets/close.svg" alt=""></a>
+		</div>
+		<div class="single">
+	
+	
+			{% for block in entry.files %}
+				
+			<div class="slide {{ block.type }}">
+			
+				{% if block.type == 'audio' %}
+					
+					
+					{% set asset = block.file.first() %}
+                    {% set crop = block.crop %}
+					<audio id="audio" src="{{ asset.url }}" controls ></audio>
+					
+					<div class="thumb {% if not crop %}not-cropped{% endif %}" style="background-image: url('{% for asset in block.thumbnail %}{{ asset.url }}{% endfor %}')"></div>
+						
+					{% include 'includes/player.html' with {'id': asset.id } %}
+
+										
+
+				{% else %}
+					
+					{% set poster = block.thumbnail.first() %}
+					
+					<video id="video" controls="false" poster="{{ poster.url }}" preload="none">
+						<source src="{% for asset in block.file %}{{ asset.url }}{% endfor %}" />
+					</video>
+					{% include 'includes/player.html' with {'id': asset.id } %}
+
+
+				{% endif %}			
+
+
+
+			</div>
+			
+
+			
+			 {% if loop.length > 1 and loop.index == loop.length %}
+		
+    		    <div class="prev"><img src="/assets/larr.svg" alt=""></div>
+    		    <div class="next"><img src="/assets/rarr.svg" alt=""></div>
+    		    
+    		{% endif %}	
+			
+			{% endfor %}
+	
+
+		
+			
+		</div>
+		
+
+
+
+
+
+
+
+
+<script>
+
+/// Tools 
+
+function convertTime ( secs ) {
+    
+    var min = Math.floor( secs / 60 );
+    var sec = Math.floor( secs % 60 );
+    
+    if ( sec < 10 ) sec = "0" + sec;
+    
+    return min + ':' + sec;
+    
+}
+    
+    
+
+
+/// SLIDER 
+
+var currentIndex = 0,
+    $items = $('.single .slide'),
+    itemAmount = $items.length;
+    
+function slider () {
+    var item = $items.eq(currentIndex);
+    $items.hide();
+    item.fadeIn();
+}
+
+var $prev = $('.prev'),
+    $next = $('.next');
+
+$('.prev').hide();
+
+
+$next.click(function() {
+    currentIndex += 1;
+    if (currentIndex > itemAmount - 1) {
+        currentIndex = 0;
+    }
+    
+    if (currentIndex > 0) {
+        $prev.show();
+    }
+    
+    if (currentIndex == itemAmount -1) {
+        $next.hide();
+    }
+    slider();
+})
+
+$prev.click(function() {
+    currentIndex -= 1;
+    if (currentIndex < 0) {
+        currentIndex = itemAmount - 1;
+    }
+    
+    if (currentIndex == 0) {
+        $prev.hide();
+        $next.show();
+    }
+    
+    if (currentIndex > 0 && currentIndex < itemAmount - 1) {
+        $next.show()
+    }
+
+
+    
+    slider();
+})
+    
+    
+/// PLAYERS 
+
+
+$( ".slide" ).each(function(){
+    
+    
+    if (  $(this).hasClass('video') ) {
+        var isVideo = true;
+    }
+
+    
+    
+    var video = $(this).find('#video');
+    var $video = $(this).find('#video')[0]; 
+
+
+
+    
+      
+    
+
+        
+    var $player = $(this).find('audio'),
+        $play = $(this).find('.play'),
+        $pause = $(this).find('.pause'),
+        $stop = $(this).find('.stop'),
+        $time = $(this).find('.time'),
+        $duration = $(this).find('.duration'),
+        $scrubber = $(this).find('.scrubber'),
+        $volume = $(this).find('#volume_slider');
+    
+    console.log($player)
+    
+
+    //// BOTH
+    function setDuration ( secs ) {
+        
+        $scrubber.attr('max', secs );
+        var duration = convertTime( secs );
+        $duration.text( duration );
+        
+    }
+
+    function setTime ( secs ) {
+        
+        var time = convertTime( secs );
+        $time.text( time );
+        $scrubber.val( secs );
+        
+    }
+
+
+
+
+
+// // CONTROLS
+
+     
+    function playEl(){
+        
+       
+        $play.hide();
+        $pause.show();
+        
+        if (isVideo) {
+            $video.play();
+        } else {
+            $player.trigger('play');   
+        }
+        
+    }
+    
+    function pauseEl() {
+        $pause.hide();
+        $play.show();
+
+        if (isVideo) {
+            $video.pause();  
+        } else {
+            $player.trigger('pause');     
+        }
+    }
+
+    function stopEl() {
+        pauseEl();
+        
+        if (isVideo) {
+        	$video.currentTime = 0; 
+        } else {
+            $player.prop('currentTime', 0);  
+        }
+    }
+
+    $play.click( playEl );
+    $pause.click( pauseEl );
+    $stop.click( stopEl );
+    
+    
+    // VOLUME
+	$volume.on('change', function() {
+	    
+	    if (isVideo) {
+	        $video.volume = this.value;
+        } else {
+	        $player.prop("volume", this.value);
+        }
+        
+	});
+
+
+
+
+    
+        ////// VIDEO 
+    
+    	//GET TIME
+    	
+    	video.on('loadedmetadata', function() {
+    		
+    		duration = $video.duration;
+            setDuration( duration );
+            
+    	});
+    	
+    	//update HTML5 video current play time
+    	video.on('timeupdate', function() {
+    
+    		time = $video.currentTime;
+            setTime( time );
+    
+    	});
+    	
+    	
+    	$scrubber.on('mousedown', pauseEl );
+        
+        $scrubber.on('input', function(){
+            
+            $video.currentTime = $scrubber.val();
+    
+        })
+        
+        $scrubber.on('mouseup', playEl )
+        
+        
+        
+
+    
+    
+    
+    // AUDIO
+    
+        
+        var duration = $player.prop('duration');
+        
+        if ( isNaN( duration ) ) {
+            
+            $player.on('loadedmetadata', function(){
+                
+                duration = $player.prop('duration');
+                setDuration( duration );
+                
+            })
+            
+        } else {
+            
+            setDuration( duration );
+            
+        }
+        
+        $player.on('timeupdate', function(){
+            
+            var time = $player.prop('currentTime');
+            setTime( time );
+            
+        });
+        
+        
+        // SCRUBBER
+        
+        $scrubber.on('mousedown', pauseEl );
+        
+        $scrubber.on('input', function(){
+            $player.prop( 'currentTime', $scrubber.val() );
+        })
+        
+        $scrubber.on('mouseup', playEl )
+    
+    
+    
+
+    // PREVNEXT STOP
+    $('.next, .prev').click(function() {
+        stopEl();
+    })
+
+
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+
+
+
+{% endblock %}

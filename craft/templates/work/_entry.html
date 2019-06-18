@@ -1,0 +1,163 @@
+{% extends "_layout" %}
+
+{% block content %}
+
+
+{# Set parameters for prev/next elements list #}
+
+{% set params = craft.entries.section('work').order('title asc') %}
+
+	        
+		
+			
+		<div class="close">
+			<a href="{{ siteUrl }}work"><img src="/assets/close.svg" alt=""></a>
+		</div>
+		<div class="single">
+	
+	
+			{% for block in entry.clips %}
+				
+            <div class="slide" style="height: 45vw">
+
+    			
+                {% set url = block.clipUrl %}
+                {% set id = url|replace('/[^0-9+]/', '') %}
+                
+                
+
+    
+                    
+    
+                <iframe width="100%" height="100%" src="http://player.vimeo.com/video/{{id}}?color=f9fbfc&title=0&byline=0&portrait=0" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+                
+    
+                	
+                	
+            </div>
+
+
+
+			{% if loop.length > 1 and loop.index == loop.length %}
+		
+    		    <div class="prev"><img src="/assets/larr.svg" alt=""></div>
+    		    <div class="next"><img src="/assets/rarr.svg" alt=""></div>
+    		    
+    		{% endif %}	
+			
+			{% endfor %}
+	
+
+		
+			
+		</div>
+		
+
+
+
+
+
+
+
+
+<script>
+
+
+
+
+/// SLIDER 
+
+var currentIndex = 0,
+    $items = $('.single .slide'),
+    $frames = $('.single .slide iframe'),
+    itemAmount = $items.length;
+    
+    console.log($frames);
+    
+    var framesSrc = [];
+    
+    for (i = 0; i < $frames.length; i++) { 
+    
+        var frame = $frames[i];
+        var src = frame.src;
+        
+        framesSrc.push(src);
+
+    }
+    
+    console.log(framesSrc);
+    
+    
+function slider() {
+    var item = $items.eq(currentIndex);
+    var frame = $frames.eq(currentIndex);
+    var frameSrc = framesSrc[currentIndex];
+
+
+    $items.hide();
+    $frames.attr('src','');
+
+    item.fadeIn();
+    frame.attr('src', frameSrc);
+}
+
+var $prev = $('.prev'),
+    $next = $('.next');
+    
+
+
+
+
+
+
+
+$('.prev').hide();
+
+
+$next.click(function() {
+    currentIndex += 1;
+    if (currentIndex > itemAmount - 1) {
+        currentIndex = 0;
+    }
+    
+    if (currentIndex > 0) {
+        $prev.show();
+    }
+    
+    if (currentIndex == itemAmount -1) {
+        $next.hide();
+    }
+    slider();
+    
+})
+
+$prev.click(function() {
+    currentIndex -= 1;
+    if (currentIndex < 0) {
+        currentIndex = itemAmount - 1;
+    }
+    
+    if (currentIndex == 0) {
+        $prev.hide();
+        $next.show();
+    }
+    
+    if (currentIndex > 0 && currentIndex < itemAmount - 1) {
+        $next.show()
+    }
+
+
+    
+    slider();
+
+
+})
+    
+
+
+
+</script>
+
+
+
+{% endblock %}

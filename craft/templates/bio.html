@@ -1,0 +1,48 @@
+{% extends "_layout" %}
+
+{% block content %}
+
+<div class="bio">
+    
+        
+        
+        <section class="bio-section">
+            
+            <h2>BIO</h2>
+            
+            <div class="line"></div>
+            
+            {{ entry.bio }}
+            
+        </section>
+
+
+
+        <section>
+            
+            <h2>FILM</h2>
+            <h3>COMPOSITION / MUSIC PRODUCTION</h3>
+
+            <div class="line"></div>
+
+            {{ entry.film }}
+            
+        </section>
+
+
+
+        <section>
+
+            <h2>AWARDS</h2>
+
+            <div class="line"></div>
+
+            {{ entry.awards }}
+        
+        </ssection>        
+
+    
+</div>  
+
+
+{% endblock %}

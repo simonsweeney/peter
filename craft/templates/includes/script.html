@@ -1,0 +1,127 @@
+<script>
+ 
+function convertTime ( secs ) {
+    
+    var min = Math.floor( secs / 60 );
+    var sec = Math.floor( secs % 60 );
+    
+    if ( sec < 10 ) sec = "0" + sec;
+    
+    return min + ':' + sec;
+    
+}
+
+
+    
+    var $player = $('audio'),
+        $play = $('#player .play'),
+        $pause = $('#player .pause'),
+        $stop = $('#player .stop'),
+        $time = $('#player .time'),
+        $duration = $('#player .duration'),
+        $scrubber = $('.scrubber');
+
+
+    
+ 
+    
+    function setDuration ( secs ) {
+        
+        $scrubber.attr('max', secs );
+        
+        var duration = convertTime( secs );
+
+        $duration.text( duration );
+        
+    }
+    
+    function setTime ( secs ) {
+        
+        var time = convertTime( secs );
+        
+        $time.text( time );
+        
+        $scrubber.val( secs );
+        
+    }
+    
+    var duration = $player.prop('duration');
+    
+    
+    
+    
+    if ( isNaN( duration ) ) {
+        
+        $player.on('loadedmetadata', function(){
+            
+            duration = $player.prop('duration');
+            
+            setDuration( duration );
+            
+        })
+        
+    } else {
+        
+        setDuration( duration );
+        
+    }
+    
+    $player.on('timeupdate', function(){
+        
+        var time = $player.prop('currentTime');
+        
+        setTime( time );
+        
+        
+    });
+    
+    
+    // SCRUBBER
+    
+    $scrubber.on('mousedown', pauseAudio );
+    
+    $scrubber.on('input', function(){
+        
+        $player.prop( 'currentTime', $scrubber.val() );
+
+    })
+    
+    $scrubber.on('mouseup', playAudio )
+    
+
+
+	// CONTROLS
+
+    $play.click( playAudio );
+    $pause.click( pauseAudio );
+    $stop.click( stopAudio );
+        
+    function playAudio(){
+        $play.hide();
+        $player.trigger('play');    
+        $pause.show();
+    }
+        
+    function pauseAudio(){
+        $pause.hide();
+        $player.trigger('pause');    
+        $play.show();
+    }
+        
+    function stopAudio(){
+        pauseAudio();
+        $player.prop('currentTime', 0);
+    }
+    
+
+
+	/// Volume
+		
+	$('#volume_slider').on('change', function() {
+	    // $video.prop("volume", this.value);
+	    $player.prop("volume", this.value);
+	});
+
+
+        
+</script>

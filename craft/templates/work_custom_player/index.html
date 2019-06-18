@@ -1,0 +1,74 @@
+{% extends "_layout" %}
+{% set title = "Work" %}
+
+{% block content %}
+
+<div class="constellation"></div>
+<h2 class="tooltip"></h2>
+	
+	{% set desktopMod = '' %}
+	{% set tabletMod = '' %}
+	{% set phoneMod = '' %}
+
+	{% for entry in craft.entries.section('work').order('postDate desc').find() %}
+			{% if loop.length % 4 == 1 %}
+			
+				{% set desktopMod = 'center-one' %}
+			{% elseif loop.length % 4 == 2 %}
+			
+				{% set desktopMod = 'center-two' %}
+			{% elseif loop.length % 4 == 3 %}
+				
+				{% set desktopMod = 'center-three' %}
+			{% endif %}
+				
+			{% if loop.length % 3 == 2 %}
+				
+				{% set tabletMod = 'tab-center-two' %}
+				
+			{% elseif loop.length % 3 == 1 %}
+				
+				{% set tabletMod = 'tab-center-one' %}
+			
+			{% endif %}
+
+			{% if loop.length % 2 == 1 %}
+			
+				{% set phoneMod = 'mob-center-one' %}
+			
+			{% endif %}
+			
+	{% endfor %}
+
+<div class="work" style="">
+	
+	<ul class="{{ desktopMod }} {{ tabletMod }} {{ phoneMod }}">
+	
+
+	{% for entry in craft.entries.section('work').order('postDate desc').find() %}
+		<a href="{{ entry.url }}" data-title="{{ entry.title }}">
+			
+			
+
+			<li class="">
+
+			
+				<div class="image {% if loop.index % 2 %}odd{% endif %}" style="background-image: url('{% for asset in entry.constellation %}{{ asset.url }}{% endfor %}');"></div>
+				
+				<div class="no-desktop">
+					<h2>{{ entry.title }}</h2>
+				</div>
+				
+
+			</li>
+		</a>
+	
+	{% endfor %}
+
+	
+	</ul>
+
+	
+</div>
+
+{% endblock %}

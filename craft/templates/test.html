@@ -1,0 +1,136 @@
+{% extends "_layout" %}
+
+{% block content %}
+ 
+
+
+<div class="player">
+    
+    <div class="controls">
+        <div class="play">Play</div>
+        <div class="pause" style="display:none">Pause</div>
+        <div class="stop">Stop</div>
+    </div><div class="scrubber-wrap">
+        <input class="scrubber" type="range" value="0">
+    </div><div class="times">
+        <span class="time">0:00</span> | <span class="duration">0:00</span>
+    </div>
+
+</div>
+
+
+<audio src="assets/birth_excerpt_1.mp3" controls muted></audio>
+
+
+<script
+  src="https://code.jquery.com/jquery-3.1.1.min.js"
+  integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+  crossorigin="anonymous"></script>
+  
+<script>
+    
+    var $player = $('audio'),
+        $play = $('.player .play'),
+        $pause = $('.player .pause'),
+        $stop = $('.player .stop'),
+        $time = $('.player .time'),
+        $duration = $('.player .duration'),
+        $scrubber = $('.scrubber');
+
+
+    
+    function convertTime ( secs ) {
+        
+        var min = Math.floor( secs / 60 );
+        var sec = Math.floor( secs % 60 );
+        
+        if ( sec < 10 ) sec = "0" + sec;
+        
+        return min + ':' + sec;
+        
+    }
+    
+    function setDuration ( secs ) {
+        
+        $scrubber.attr('max', secs );
+        
+        var duration = convertTime( secs );
+        
+        $duration.text( duration );
+        
+    }
+    
+    function setTime ( secs ) {
+        
+        var time = convertTime( secs );
+        
+        $time.text( time );
+        
+        $scrubber.val( secs );
+        
+    }
+    
+    var duration = $player.prop('duration');
+    
+    if ( isNaN( duration ) ) {
+        
+        $player.on('loadedmetadata', function(){
+            
+            duration = $player.prop('duration');
+            
+            setDuration( duration );
+            
+        })
+        
+    } else {
+        
+        setDuration( duration );
+        
+    }
+    
+    $player.on('timeupdate', function(){
+        
+        var time = $player.prop('currentTime');
+        
+        setTime( time );
+        
+    });
+    
+    $scrubber.on('mousedown', pauseAudio );
+    
+    $scrubber.on('input', function(){
+        
+        $player.prop( 'currentTime', $scrubber.val() );
+
+    })
+    
+    $scrubber.on('mouseup', playAudio )
+    
+    // controls
+    
+    $play.click( playAudio );
+    $pause.click( pauseAudio );
+    $stop.click( stopAudio );
+        
+    function playAudio(){
+        $play.hide();
+        $player.trigger('play');    
+        $pause.show();
+    }
+        
+    function pauseAudio(){
+        $pause.hide();
+        $player.trigger('pause');    
+        $play.show();
+    }
+        
+    function stopAudio(){
+        pauseAudio();
+        $player.prop('currentTime', 0);
+    }
+        
+    
+</script>
+
+
+{% endblock %}

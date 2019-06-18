@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+	<meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1 user-scalable=no">
+
+	<title>{% if title is defined %}{{ title }} - {% endif %}{{ siteName }}</title>
+	<link rel="home" href="{{ siteUrl }}" />
+
+	<meta name="description" content="Conceived, and born, in Johannesburg. Moved to London as a youngster. Refused to hold the violin under my chin, rejected my piano teacher but embraced the piano. Played the trumpet - a lot. Sister gifted me a cassette of Hunky Dory. My Dad, a guitar. My Mom, the language of emotion.	Formed my first band. Wrote my first love song, my first breakup song. Moved to Paris to attend the Sorbonne, then to Manchester. Back to London, where I was smitten by my first orchestral session. Soundtree began - www.soundtreemusic.com. Got myself married and we have two children. Music.">
+
+    <link rel="stylesheet" href="/style.css" type="text/css" />
+
+		
+		<script src="https://code.jquery.com/jquery-3.1.1.min.js"
+				integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+				crossorigin="anonymous"></script>
+				
+				
+</head>
+
+{% set loc = craft.request.firstSegment %}
+{% set locLast = craft.request.getSegment( 2 ) %}
+
+
+<body class="{% if loc == 'work' and locLast != '' %} bg-black{% endif %}">
+	
+		{% if loc != '' %}
+			<header id="header" class="{% if loc == 'work' and locLast != '' %}hide{% endif %}">
+				<h1><a href="{{ siteUrl }}">Peter Raeburn</a></h1>
+	
+				<nav>
+					<ul>
+						
+						<li><a href="/bio" {% if loc == 'bio' %}class="active"{% endif %}>BIO</a></li>
+						<li><a href="/work" {% if loc == 'work' %}class="active"{% endif %}>WORK</a></li>
+						<li><a href="/contact" {% if loc == 'contact' %}class="active"{% endif %}>CONTACT</a></li>
+	
+					</ul>
+				</nav>
+			</header>
+		{% endif %}
+		
+		
+		
+		<main id="content" role="main">
+			{% block content %}
+				<p>If you see me, you haven’t set your <code>{% verbatim %}{% block content %}…{% endblock %}{% endverbatim %}</code> yet.</p>
+				<p>See Twig’s <a href="http://twig.sensiolabs.org/doc/templates.html#template-inheritance">Template Inheritance</a> documentation for an explanation.</p>
+			{% endblock %}
+		</main>
+
+
+		{% if craft.request.firstSegment != '' %}
+
+			<footer id="footer">
+			</footer>
+
+		{% endif %}
+
+        <script type="text/javascript" src="/bundle.js"></script>
+
+
+</body>
+</html>
